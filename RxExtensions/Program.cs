@@ -12,9 +12,8 @@ namespace RxExtensions
             //Dave.PropertyChangedName().Dump("PropertyChangedName");
             //Dave.PropertyChangedObject().Dump("PropertyChangedObject");
             //Dave.PropertyChangedValue(d => d.Name).Dump("PropertyChangedValue");
-
-            Dave.PropertyChangedName()
-                .Merge(Dave.PropertyChangedName()).Dump("PropertyChangedName");
+            //Dave.PropertyChangedName().Merge(Dave.PropertyChangedName()).Dump("PropertyChangedName");
+            Dave.ObservePropertyChanged().Dump("ObservePropertyChanged");
 
             Dave.Name = "Dave";
             Dave.Age = 21;

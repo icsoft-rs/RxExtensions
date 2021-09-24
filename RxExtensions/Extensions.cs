@@ -21,6 +21,8 @@ namespace RxExtensions
                () => Console.WriteLine("{0} completed", name));
         }
 
+        public static IObservable<T> Merge<T>(this IObservable<T> source, IObservable<T> obs) => Observable.Merge(new List<IObservable<T>>() { source, obs });
+
         /// <summary>
         /// Returns an observable sequence of the source any time the <c>PropertyChanged</c> event is raised.
         /// </summary>
@@ -53,33 +55,18 @@ namespace RxExtensions
         }
 
         /// <summary>
-        /// Gets property information for the specified <paramref name="property"/> expression.
+        /// Returns an observable sequence of the source any time the <c>PropertyChanged</c> event is raised.
         /// </summary>
-        /// <typeparam name="TSource">Type of the parameter in the <paramref name="property"/> expression.</typeparam>
-        /// <typeparam name="TValue">Type of the property's value.</typeparam>
-        /// <param name="property">The expression from which to retrieve the property information.</param>
-        /// <returns>Property information for the specified expression.</returns>
-        /// <exception cref="ArgumentException">The expression is not understood.</exception>
-        public static PropertyInfo GetPropertyInfo<TSource, TValue>(this Expression<Func<TSource, TValue>> property)
+        /// <typeparam name="T">The type of the source object. Type must implement <seealso cref="INotifyPropertyChanged"/>.</typeparam>
+        /// <param name="source">The object to observe property changes on.</param>
+        /// <returns>Returns an observable sequence of the value of the source when ever the <c>PropertyChanged</c> event is raised.</returns>
+        public static IObservable<Tuple<T,string>> ObservePropertyChanged<T>(this T source) where T : INotifyPropertyChanged
         {
-            if (property == null)
-            {
-                throw new ArgumentNullException("property");
-            }
-
-            var body = property.Body as MemberExpression;
-            if (body == null)
-            {
-                throw new ArgumentException("Expression is not a property", "property");
-            }
-
-            var propertyInfo = body.Member as PropertyInfo;
-            if (propertyInfo == null)
-            {
-                throw new ArgumentException("Expression is not a property", "property");
-            }
-
-            return propertyInfo;
+            return Observable.FromEventPattern<PropertyChangedEventHandler, PropertyChangedEventArgs>(
+                               handler => handler.Invoke,
+                               h => source.PropertyChanged += h,
+                               h => source.PropertyChanged -= h)
+                           .Select(x => Tuple.Create(source, x.EventArgs.PropertyName));
         }
 
         /// <summary>
@@ -108,10 +95,35 @@ namespace RxExtensions
             });
         }
 
-
-        public static IObservable<T> Merge<T>(this IObservable<T> source, IObservable<T> obs)
+        /// <summary>
+        /// Gets property information for the specified <paramref name="property"/> expression.
+        /// </summary>
+        /// <typeparam name="TSource">Type of the parameter in the <paramref name="property"/> expression.</typeparam>
+        /// <typeparam name="TValue">Type of the property's value.</typeparam>
+        /// <param name="property">The expression from which to retrieve the property information.</param>
+        /// <returns>Property information for the specified expression.</returns>
+        /// <exception cref="ArgumentException">The expression is not understood.</exception>
+        public static PropertyInfo GetPropertyInfo<TSource, TValue>(this Expression<Func<TSource, TValue>> property)
         {
-            return Observable.Merge(new List<IObservable<T>>() { source, obs });
+            if (property == null)
+            {
+                throw new ArgumentNullException("property");
+            }
+
+            var body = property.Body as MemberExpression;
+            if (body == null)
+            {
+                throw new ArgumentException("Expression is not a property", "property");
+            }
+
+            var propertyInfo = body.Member as PropertyInfo;
+            if (propertyInfo == null)
+            {
+                throw new ArgumentException("Expression is not a property", "property");
+            }
+
+            return propertyInfo;
         }
+        
     }
 }
