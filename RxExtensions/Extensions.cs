@@ -29,7 +29,7 @@ namespace RxExtensions
         /// <typeparam name="T">The type of the source object. Type must implement <seealso cref="INotifyPropertyChanged"/>.</typeparam>
         /// <param name="source">The object to observe property changes on.</param>
         /// <returns>Returns an observable sequence of the value of the source when ever the <c>PropertyChanged</c> event is raised.</returns>
-        public static IObservable<string> PropertyChangedName<T>(this T source) where T : INotifyPropertyChanged
+        public static IObservable<string> ObservePropertyChangedName<T>(this T source) where T : INotifyPropertyChanged
         {
             return Observable.FromEventPattern<PropertyChangedEventHandler, PropertyChangedEventArgs>(
                                handler => handler.Invoke,
@@ -45,7 +45,7 @@ namespace RxExtensions
         /// <typeparam name="T">The type of the source object. Type must implement <seealso cref="INotifyPropertyChanged"/>.</typeparam>
         /// <param name="source">The object to observe property changes on.</param>
         /// <returns>Returns an observable sequence of the value of the source when ever the <c>PropertyChanged</c> event is raised.</returns>
-        public static IObservable<T> PropertyChangedObject<T>(this T source) where T : INotifyPropertyChanged
+        public static IObservable<T> ObservePropertyChangedObject<T>(this T source) where T : INotifyPropertyChanged
         {
             return Observable.FromEventPattern<PropertyChangedEventHandler, PropertyChangedEventArgs>(
                                handler => handler.Invoke,
@@ -60,13 +60,13 @@ namespace RxExtensions
         /// <typeparam name="T">The type of the source object. Type must implement <seealso cref="INotifyPropertyChanged"/>.</typeparam>
         /// <param name="source">The object to observe property changes on.</param>
         /// <returns>Returns an observable sequence of the value of the source when ever the <c>PropertyChanged</c> event is raised.</returns>
-        public static IObservable<Tuple<T,string>> ObservePropertyChanged<T>(this T source) where T : INotifyPropertyChanged
+        public static IObservable<(T instance, string propertyName)> ObservePropertyChanged<T>(this T source) where T : INotifyPropertyChanged
         {
             return Observable.FromEventPattern<PropertyChangedEventHandler, PropertyChangedEventArgs>(
                                handler => handler.Invoke,
                                h => source.PropertyChanged += h,
                                h => source.PropertyChanged -= h)
-                           .Select(x => Tuple.Create(source, x.EventArgs.PropertyName));
+                           .Select(x => (source, x.EventArgs.PropertyName));
         }
 
         /// <summary>
@@ -77,7 +77,7 @@ namespace RxExtensions
         /// <param name="source">The object to observe property changes on.</param>
         /// <param name="property">An expression that describes which property to observe.</param>
         /// <returns>Returns an observable sequence of the property values as they change.</returns>
-        public static IObservable<TProperty> PropertyChangedValue<T, TProperty>(this T source, Expression<Func<T, TProperty>> property)
+        public static IObservable<TProperty> ObservePropertyChangedValue<T, TProperty>(this T source, Expression<Func<T, TProperty>> property)
             where T : INotifyPropertyChanged
         {
             return Observable.Create<TProperty>(o =>
