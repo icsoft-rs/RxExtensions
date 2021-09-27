@@ -17,7 +17,7 @@ namespace StayFit.Extensions.RxExtensions
             {
                 Task.Run(async () =>
                 {
-                    Console.WriteLine("Observable started");
+                    Console.WriteLine($"From ManagedThreadId {Thread.CurrentThread.ManagedThreadId} Observable started");
                     for (int i = 1; i < 11; i++) 
                     {
                         await Task.Delay(2000);
