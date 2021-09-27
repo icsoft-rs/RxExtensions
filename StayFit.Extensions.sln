@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31702.278
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StayFit.Extensions", "StayFit.Extensions\StayFit.Extensions.csproj", "{B5B4A57A-8A68-4316-ADA4-6A449352492C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StayFit.App", "StayFit.App\StayFit.App.csproj", "{66699ECB-D8CE-40C6-9CCF-B18D1FD1D323}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B5B4A57A-8A68-4316-ADA4-6A449352492C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5B4A57A-8A68-4316-ADA4-6A449352492C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5B4A57A-8A68-4316-ADA4-6A449352492C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5B4A57A-8A68-4316-ADA4-6A449352492C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66699ECB-D8CE-40C6-9CCF-B18D1FD1D323}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66699ECB-D8CE-40C6-9CCF-B18D1FD1D323}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66699ECB-D8CE-40C6-9CCF-B18D1FD1D323}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66699ECB-D8CE-40C6-9CCF-B18D1FD1D323}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {370FC1D5-1A7B-4C1B-9EEB-6C937EB4C53E}
+	EndGlobalSection
+EndGlobal

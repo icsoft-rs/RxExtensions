@@ -5,7 +5,7 @@ using System.Reactive.Disposables;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace RxExtensions
+namespace StayFit.Extensions.RxExtensions
 {
     public static class Publisher
     {

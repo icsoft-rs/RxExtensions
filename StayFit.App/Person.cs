@@ -1,6 +1,6 @@
 using System.ComponentModel;
 
-namespace RxCookbook
+namespace StayFit.App
 {
     public class Person : INotifyPropertyChanged
     {
@@ -33,13 +33,11 @@ namespace RxCookbook
             }
         }
 
-        #region INotifyPropertyChanged implementation
+        #region INotifyPropertyChanged 
+
         public event PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyChanged(string propertyName)
-        {
-            var handler = PropertyChanged;
-            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
-        }
+        private void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
         #endregion
     }
 }

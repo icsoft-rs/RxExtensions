@@ -9,7 +9,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RxExtensions
+namespace StayFit.Extensions.RxExtensions
 {
     public static class Extensions
     {
