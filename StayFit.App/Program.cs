@@ -3,6 +3,7 @@ using System;
 using System.Threading.Tasks;
 using System.Reactive.Linq;
 using System.Threading;
+using System.Reactive.Threading.Tasks;
 
 namespace StayFit.App
 {
@@ -19,6 +20,19 @@ namespace StayFit.App
 
         static async Task MainAsync()
         {
+            //var task = Publisher.GetTask3();
+            //task.Start();
+            //task.ToObservable()
+            //    .SelectMany(x => x)
+            //    .Subscribe(x => Extensions.Extensions.WriteLineColored($"Observer {x}", ConsoleColor.Red));
+
+            //task.Start();
+            //var x = await task;
+
+            //x.ToObservable()
+            //    .Skip(3)
+            //    .Subscribe(x => Extensions.Extensions.WriteLineColored($"Observer {x}", ConsoleColor.Red));
+
             var observer = Publisher.ObserveSeconds;
             observer.Where(i => i > 5).Subscribe(x => Extensions.Extensions.WriteLineColored($"Observer {x}", ConsoleColor.Cyan));
             observer.Subscribe(x => Extensions.Extensions.WriteLineColored($"Observer {x}", ConsoleColor.Yellow));
