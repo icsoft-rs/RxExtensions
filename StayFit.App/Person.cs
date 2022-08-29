@@ -5,6 +5,7 @@ namespace StayFit.App
     public class Person : INotifyPropertyChanged
     {
         //this is hotfix
+        //hofix 4
         string _name;
         int _age;
 
